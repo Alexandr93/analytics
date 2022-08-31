@@ -10,8 +10,10 @@ import java.util.List;
 public class ParseLine {
 
     Line question;
-
-
+    private final String DATE_FORMAT = "d.MM.yyyy";
+    private  final String DATE_SEPARATOR ="-";
+    private  final String VERSION_SEPARATOR ="\\.";
+    private  final String WORD_SEPARATOR ="\s";
     public Line parse(String lineString) {
 
 
@@ -24,7 +26,7 @@ public class ParseLine {
         }
 
 
-        String[] propArray = lineString.split("\s");
+        String[] propArray = lineString.split(WORD_SEPARATOR);
         question.setMessageType(propArray[0]);
         parseServiceType(propArray[1]);
         parseQuestionType(propArray[2]);
@@ -40,7 +42,7 @@ public class ParseLine {
 
     public void parseServiceType(String service) {
 
-        String[] a = service.split("\\.");
+        String[] a = service.split(VERSION_SEPARATOR);
         if (a.length >= 1) {
             question.setServiceId(a[0]);
         }
@@ -52,7 +54,7 @@ public class ParseLine {
 
     public void parseQuestionType(String questionType) {
 
-        String[] a = questionType.split("\\.");
+        String[] a = questionType.split(VERSION_SEPARATOR);
         if (a.length >= 1) {
             question.setQuestionTypeId(a[0]);
         }
@@ -66,7 +68,7 @@ public class ParseLine {
     }
 
     public Date parseDate(String dateString) {
-        SimpleDateFormat formatter = new SimpleDateFormat("d.MM.yyyy");
+        SimpleDateFormat formatter = new SimpleDateFormat(DATE_FORMAT);
 
         Date date;
         try {
@@ -79,7 +81,7 @@ public class ParseLine {
 
 
     public void setDate(String stringDate) {
-        String[] dates = stringDate.split("-");
+        String[] dates = stringDate.split(DATE_SEPARATOR);
         List<Date> date = Arrays.stream(dates).map(this::parseDate).toList();
         question.setDate(date);
 
