@@ -1,4 +1,4 @@
-package analytics;
+package analytics.models;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -10,17 +10,23 @@ import java.util.List;
 
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-@Getter
 @Setter
-public class Question extends Line {
+@Getter
+public class Query extends Line {
 
 
-    private Date eventDate;
-    private int waitingTime;
+    private Date dateFrom;
+    private Date dateTo;
+
 
     @Override
     public void setDate(List<Date> dates) {
-        setEventDate(dates.get(0));
+        setDateFrom(dates.get(0));
+        if (dates.size() == 1)
+            setDateTo(dates.get(0));
+        else
+            setDateTo(dates.get(1));
     }
+
 
 }

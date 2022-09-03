@@ -1,5 +1,8 @@
 package analytics;
 
+import analytics.models.Query;
+import analytics.models.Question;
+
 import java.util.Date;
 
 public class CheckContains {
@@ -16,7 +19,7 @@ public class CheckContains {
         if (checkDateRange(query.getDateFrom(), query.getDateTo(), question.getEventDate())) {
             if (checkService(query, question) && checkQuestionType(query, question))
             {
-                //System.out.println(question.getEventDate() + " " + question.getWaitingTime() + " Zapros " + query.getDateFrom() + "-" + query.getDateTo());
+
                 return true;
             }
         }

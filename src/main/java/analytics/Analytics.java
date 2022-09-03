@@ -1,5 +1,11 @@
 package analytics;
 
+import analytics.models.Line;
+import analytics.models.Query;
+import analytics.models.Question;
+import analytics.parser.ParseLine;
+import analytics.parser.ParseLineImpl;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -16,6 +22,7 @@ public class Analytics {
                 int minutesCount =0;
                 int containsCount = 0;
                 CheckContains checkContains = new CheckContains();
+
                 for(Question q: listQuestions){
                     int buff = checkContains.checkContains((Query) lineList.get(i), q);
                     if(buff>0){
@@ -26,13 +33,10 @@ public class Analytics {
 
                 if(containsCount==0){
                     result.add("-");
-
                 }
                 if(containsCount>=1)
                 {
-
                     result.add((Integer.toString(minutesCount/containsCount)));
-
 
                 }
 
@@ -47,7 +51,7 @@ public class Analytics {
 
 
     public List<Line> getLineList(String filePath){
-        ParseLine parseLine = new ParseLine();
+        ParseLine parseLine = new ParseLineImpl();
         List<String> lines;
         try{
             lines = Files.readAllLines(Path.of(filePath));

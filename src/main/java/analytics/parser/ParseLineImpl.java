@@ -1,4 +1,8 @@
-package analytics;
+package analytics.parser;
+
+import analytics.models.Line;
+import analytics.models.Query;
+import analytics.models.Question;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -7,9 +11,9 @@ import java.util.Date;
 import java.util.List;
 
 
-public class ParseLine {
+public class ParseLineImpl implements ParseLine{
 
-    Line question;
+    private Line question;
     private final String DATE_FORMAT = "d.MM.yyyy";
     private  final String DATE_SEPARATOR ="-";
     private  final String VERSION_SEPARATOR ="\\.";
@@ -65,6 +69,7 @@ public class ParseLine {
             question.setSubCategoryId(a[2]);
         }
 
+
     }
 
     public Date parseDate(String dateString) {
@@ -74,7 +79,7 @@ public class ParseLine {
         try {
             date = formatter.parse(dateString);
         } catch (ParseException e) {
-            throw new RuntimeException(e);
+            throw new IllegalArgumentException(e);
         }
         return date;
     }
